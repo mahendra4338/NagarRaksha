@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block title %}Crime Heatmap{% endblock %}
+
+{% block extra_css %}
+<!-- Leaflet.js CSS — free map library, no API key needed -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/heatmap.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1 class="page-title">🗺️ Crime Heatmap</h1>
+    <p class="page-subtitle">Live map of all reported incidents. Click any marker for details.</p>
+</div>
+
+<!-- Filter Panel -->
+<div class="filter-panel card">
+    <div class="filter-grid">
+
+        <div class="form-group filter-item">
+            <label>Filter by City</label>
+            <select id="filterCity" onchange="applyFilters()">
+                <option value="">All Cities</option>
+                <option value="Vijayawada">Vijayawada</option>
+                <option value="Hyderabad">Hyderabad</option>
+                <option value="Guntur">Guntur</option>
+                <option value="Nellore">Nellore</option>
+                <option value="Vizag">Vizag</option>
+                <option value="Tirupati">Tirupati</option>
+            </select>
+        </div>
+
+        <div class="form-group filter-item">
+            <label>Filter by Type</label>
+            <select id="filterType" onchange="applyFilters()">
+                <option value="">All Types</option>
+                <option value="Suspicious Person">Suspicious Person</option>
+                <option value="Abandoned Object">Abandoned Object</option>
+                <option value="Suspicious Vehicle">Suspicious Vehicle</option>
+                <option value="Criminal Activity">Criminal Activity</option>
+            </select>
+        </div>
+
+        <div class="form-group filter-item">
+            <label>Filter by Threat</label>
+            <select id="filterThreat" onchange="applyFilters()">
+                <option value="">All Levels</option>
+                <option value="CRITICAL">🔴 Critical</option>
+                <option value="HIGH">🟠 High</option>
+                <option value="MEDIUM">🟡 Medium</option>
+                <option value="LOW">🟢 Low</option>
+            </select>
+        </div>
+
+        <div class="form-group filter-item">
+            <label>Filter by Status</label>
+            <select id="filterStatus" onchange="applyFilters()">
+                <option value="">All Status</option>
+                <option value="PENDING">⏳ Pending</option>
+                <option value="RESOLVED">✅ Resolved</option>
+            </select>
+        </div>
+
+    </div>
+
+    <div class="filter-actions">
+        <button class="btn btn-outline btn-sm" onclick="clearFilters()">
+            ✕ Clear Filters
+        </button>
+        <span class="report-count" id="reportCount">Loading reports...</span>
+    </div>
+</div>
+
+<!-- Map Legend -->
+<div class="map-legend">
+    <span class="legend-item"><span class="legend-dot critical"></span> Critical</span>
+    <span class="legend-item"><span class="legend-dot high"></span> High</span>
+    <span class="legend-item"><span class="legend-dot medium"></span> Medium</span>
+    <span class="legend-item"><span class="legend-dot low"></span> Low</span>
+    <span class="legend-refresh" id="refreshStatus">🔄 Auto-refresh: ON</span>
+</div>
+
+<!-- Map Container — Leaflet renders inside this div -->
+<div id="map"></div>
+
+{% endblock %}
+
+{% block extra_js %}
+<!-- Leaflet.js — free, open-source map library (no API key!) -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="{{ url_for('static', filename='js/heatmap.js') }}"></script>
+{% endblock %}

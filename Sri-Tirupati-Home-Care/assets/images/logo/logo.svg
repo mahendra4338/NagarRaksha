@@ -1,0 +1,32 @@
+<svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="stcLogoTitle">
+  <title id="stcLogoTitle">Sri Tirupati Home Care Services</title>
+  <defs>
+    <linearGradient id="stcLogoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F4C81"/>
+      <stop offset="100%" stop-color="#14B8A6"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Badge background -->
+  <circle cx="60" cy="60" r="58" fill="url(#stcLogoGrad)"/>
+  <circle cx="60" cy="60" r="58" fill="none" stroke="#ffffff" stroke-opacity="0.15" stroke-width="2"/>
+
+  <!-- House silhouette -->
+  <g fill="#ffffff" fill-opacity="0.96">
+    <path d="M60 27 L91 52 V83 A4 4 0 0 1 87 87 H33 A4 4 0 0 1 29 83 V52 Z"/>
+  </g>
+  <!-- Roof accent ridge -->
+  <path d="M60 27 L95 55 L91 60 L60 35 L29 60 L25 55 Z" fill="#0B2338" fill-opacity="0.12"/>
+
+  <!-- Door cut-out (house interior) -->
+  <rect x="52" y="66" width="16" height="21" rx="2" fill="url(#stcLogoGrad)"/>
+
+  <!-- Heartbeat / care pulse line running through the home -->
+  <path d="M33 71 H45 L50 60 L57 82 L63 66 L67 71 H87"
+        fill="none" stroke="#3CCF91" stroke-width="3.4"
+        stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Small pulse dot accents -->
+  <circle cx="33" cy="71" r="2.6" fill="#3CCF91"/>
+  <circle cx="87" cy="71" r="2.6" fill="#3CCF91"/>
+</svg>

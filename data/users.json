@@ -1,0 +1,26 @@
+{
+  "citizen@nr.com": {
+    "user_id": "USR001",
+    "password": "citizen123",
+    "role": "citizen",
+    "name": "Ravi Kumar"
+  },
+  "authority@nr.com": {
+    "user_id": "USR002",
+    "password": "authority123",
+    "role": "authority",
+    "name": "Inspector Sharma"
+  },
+  "government@nr.com": {
+    "user_id": "USR003",
+    "password": "government123",
+    "role": "government",
+    "name": "Commissioner Rao"
+  },
+  "mahig77777@gmail.com": {
+    "user_id": "USR902FAC4F",
+    "password": "Mahig@1234",
+    "role": "citizen",
+    "name": "Gangireddy Mahendra Reddy"
+  }
+}

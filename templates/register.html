@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+{% block title %}Register{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="login-wrapper">
+    <!-- Left Panel: Branding & Visuals (Desktop only) -->
+    <div class="login-visual-panel">
+        <div class="visual-content">
+            <div class="visual-badge">🛡️ Citizen Safety Portal</div>
+            <h1 class="visual-headline">NagarRaksha</h1>
+            <p class="visual-tagline">AI-Powered Safety Reporting & Live Hotspot Heatmaps</p>
+            
+            <div class="feature-bullets">
+                <div class="bullet-item">
+                    <span class="bullet-icon">📷</span>
+                    <div>
+                        <h4>AI Image Analysis</h4>
+                        <p>Google Gemini 1.5 Flash instantly verifies incident authenticity and evaluates threat level.</p>
+                    </div>
+                </div>
+                <div class="bullet-item">
+                    <span class="bullet-icon">🗺️</span>
+                    <div>
+                        <h4>Live Hotspot Heatmaps</h4>
+                        <p>Real-time visual map representing reported threat levels to aid rapid local resolution.</p>
+                    </div>
+                </div>
+                <div class="bullet-item">
+                    <span class="bullet-icon">🆘</span>
+                    <div>
+                        <h4>Automated SOS Signals</h4>
+                        <p>One-tap critical emergency signals that share live GPS metrics with family and stations.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Floating Stats Card -->
+            <div class="visual-stats-card">
+                <div class="stat-box">
+                    <span class="stat-val">24/7</span>
+                    <span class="stat-lbl">Active Guard</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-box">
+                    <span class="stat-val">98%</span>
+                    <span class="stat-lbl">AI Precision</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-box">
+                    <span class="stat-val">&lt;5s</span>
+                    <span class="stat-lbl">Response Time</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tech Map Background Overlay -->
+        <div class="visual-overlay-bg"></div>
+    </div>
+
+    <!-- Right Panel: Form Card -->
+    <div class="login-form-panel">
+        <div class="login-card">
+
+            <!-- Logo + Title -->
+            <div class="login-logo">🛡️</div>
+            <h1 class="login-title">NagarRaksha</h1>
+            <p class="login-subtitle">Register to report incidents & keep citizens safe.</p>
+
+            <!-- Error message (only shown if registration fails) -->
+            {% if error %}
+            <div class="alert alert-error" style="background: rgba(255, 76, 76, 0.1); border: 1px solid var(--danger); color: var(--danger); padding: 12px; border-radius: 8px; margin-bottom: 20px; text-align: left; font-size: 0.88rem;">
+                {{ error }}
+            </div>
+            {% endif %}
+
+            <!-- Registration Form -->
+            <form method="POST" action="/register" class="login-form">
+
+                <!-- Name Field -->
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text"
+                           id="name"
+                           name="name"
+                           placeholder="Enter your full name"
+                           required>
+                </div>
+
+                <!-- Email Field -->
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email"
+                           id="email"
+                           name="email"
+                           placeholder="Enter your email"
+                           autocomplete="email"
+                           required>
+                </div>
+
+                <!-- Password Field -->
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password"
+                           id="password"
+                           name="password"
+                           placeholder="Create a strong password"
+                           required>
+                </div>
+
+                <!-- Role Selector -->
+                <div class="form-group">
+                    <label>Register As</label>
+                    <div class="role-selector">
+
+                        <label class="role-option">
+                            <input type="radio" name="role" value="citizen" checked>
+                            <div class="role-card">
+                                <span class="role-icon">👤</span>
+                                <span class="role-name">Citizen</span>
+                                <span class="role-desc">Report & SOS</span>
+                            </div>
+                        </label>
+
+                        <label class="role-option">
+                            <input type="radio" name="role" value="authority">
+                            <div class="role-card">
+                                <span class="role-icon">👮</span>
+                                <span class="role-name">Authority</span>
+                                <span class="role-desc">View & Resolve</span>
+                            </div>
+                        </label>
+
+                        <label class="role-option">
+                            <input type="radio" name="role" value="government">
+                            <div class="role-card">
+                                <span class="role-icon">🏛️</span>
+                                <span class="role-name">Government</span>
+                                <span class="role-desc">Analytics</span>
+                            </div>
+                        </label>
+
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-primary login-btn">
+                    📝 Register Account
+                </button>
+            </form>
+
+            <!-- Redirect to Login link -->
+            <p class="login-hint" style="text-align:center; margin-top:20px; color:var(--text-muted); font-size:0.92rem;">
+                Already have an account? <a href="/" style="color:var(--accent); text-decoration:none; font-weight:bold;">Login here</a>
+            </p>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

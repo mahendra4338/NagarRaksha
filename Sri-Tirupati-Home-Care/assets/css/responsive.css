@@ -1,0 +1,26 @@
+/* ===================== RESPONSIVE OVERRIDES ===================== */
+
+@media (max-width: 1199.98px){
+  :root{ --section-padding: 5rem 0; }
+}
+
+@media (max-width: 991.98px){
+  :root{ --section-padding: 4rem 0; }
+  .hero-home{ text-align:center; padding-top: 9rem; }
+  .hero-home .hero-visual{ margin-top: 3rem; }
+  .timeline-step{ margin-bottom: 1.5rem; }
+}
+
+@media (max-width: 767.98px){
+  :root{ --section-padding: 3.25rem 0; }
+  .section-title{ font-size: 1.65rem; }
+  .page-hero{ padding: 7rem 0 3rem; text-align:center; }
+  .stc-footer{ text-align:center; }
+  .footer-contact li{ justify-content:center; }
+  .back-to-top{ width:42px; height:42px; right:1rem; bottom:1rem; }
+}
+
+@media (max-width: 575.98px){
+  .btn{ padding: .8rem 1.5rem; font-size:.92rem; }
+  .stat-number{ font-size: 1.75rem; }
+}

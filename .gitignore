@@ -1,0 +1,32 @@
+# ============================================================
+# .gitignore — Files Git should NEVER track
+# ============================================================
+
+# Secret keys — NEVER push to GitHub
+.env
+
+# Python compiled files — not needed in repo
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# User uploaded photos — too large for git + privacy
+static/uploads/*
+!static/uploads/.gitkeep
+
+# Virtual environment
+venv/
+.venv/
+env/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+*.swp
+
+# Log files
+*.log

@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% block title %}Report Incident{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/report.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1 class="page-title">📷 Report Suspicious Activity</h1>
+    <p class="page-subtitle">Upload a photo and our AI will analyze the threat level instantly.</p>
+</div>
+
+<div class="report-layout">
+
+    <!-- ── LEFT: Upload Form ─────────────────────────────── -->
+    <div class="card report-form-card">
+        <h2 class="card-title">Submit a Report</h2>
+
+        <!-- Photo Upload Area -->
+        <div class="form-group">
+            <label>Upload Photo Evidence</label>
+
+            <!-- Photo preview box — shows selected image before upload -->
+            <div class="photo-upload-area" id="uploadArea"
+                 onclick="document.getElementById('photoInput').click()">
+                <div class="upload-placeholder" id="uploadPlaceholder">
+                    <span class="upload-icon">📸</span>
+                    <p>Click to select a photo</p>
+                    <p class="upload-hint">JPG, PNG, WEBP — Max 16MB</p>
+                </div>
+                <!-- Preview image (hidden until photo selected) -->
+                <img id="photoPreview" src="" alt="Preview" style="display:none;">
+            </div>
+
+            <!-- Actual file input (visually hidden — triggered by clicking the area above) -->
+            <input type="file"
+                   id="photoInput"
+                   name="photo"
+                   accept="image/*"
+                   style="display:none;"
+                   onchange="previewPhoto(this)">
+        </div>
+
+        <!-- Incident Type -->
+        <div class="form-group">
+            <label for="incidentType">Incident Type</label>
+            <select id="incidentType" name="incident_type">
+                <option value="">-- Select Incident Type --</option>
+                <option value="Suspicious Person">👤 Suspicious Person</option>
+                <option value="Abandoned Object">📦 Abandoned Object</option>
+                <option value="Suspicious Vehicle">🚗 Suspicious Vehicle</option>
+                <option value="Criminal Activity">⚠️ Criminal Activity</option>
+            </select>
+        </div>
+
+        <!-- City -->
+        <div class="form-group">
+            <label for="city">City</label>
+            <input type="text"
+                   id="city"
+                   name="city"
+                   placeholder="Enter city name (e.g. Vijayawada)"
+                   maxlength="50">
+        </div>
+
+        <!-- Submit Button -->
+        <button class="btn btn-primary btn-lg submit-btn"
+                id="submitBtn"
+                onclick="submitReport()">
+            🔍 Analyze with AI
+        </button>
+    </div>
+
+    <!-- ── RIGHT: AI Result Panel ───────────────────────── -->
+    <div class="result-panel" id="resultPanel" style="display:none;">
+
+        <!-- Loading state -->
+        <div class="card loading-card" id="loadingCard">
+            <div class="spinner"></div>
+            <p class="loading-text">🤖 AI is analyzing your photo...</p>
+            <p class="loading-sub">This takes about 3-5 seconds</p>
+        </div>
+
+        <!-- Result state (shown after AI responds) -->
+        <div class="card result-card" id="resultCard" style="display:none;">
+            <h2 class="card-title">🤖 AI Analysis Result</h2>
+
+            <!-- Report ID -->
+            <div class="result-row">
+                <span class="result-label">Report ID</span>
+                <span class="result-value" id="resultReportId">—</span>
+            </div>
+
+            <!-- REAL/FAKE result -->
+            <div class="result-row">
+                <span class="result-label">Verification</span>
+                <span id="resultBadge" class="badge">—</span>
+            </div>
+
+            <!-- Threat Level -->
+            <div class="result-row">
+                <span class="result-label">Threat Level</span>
+                <div class="threat-display" id="threatDisplay">
+                    <div class="threat-bars">
+                        <div class="threat-bar" id="bar1"></div>
+                        <div class="threat-bar" id="bar2"></div>
+                        <div class="threat-bar" id="bar3"></div>
+                        <div class="threat-bar" id="bar4"></div>
+                    </div>
+                    <span id="threatLabel">—</span>
+                </div>
+            </div>
+
+            <!-- Reason -->
+            <div class="result-reason" id="resultReason">
+                <span class="result-label">AI Reason</span>
+                <p id="reasonText">—</p>
+            </div>
+
+            <!-- Action buttons -->
+            <div class="result-actions">
+                <button class="btn btn-success" onclick="submitAnother()">
+                    📷 Report Another
+                </button>
+                <a href="/heatmap" class="btn btn-outline">
+                    🗺️ View on Map
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/report.js') }}"></script>
+{% endblock %}

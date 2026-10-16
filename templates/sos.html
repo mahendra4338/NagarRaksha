@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% block title %}SOS Emergency{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/sos.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="sos-container">
+
+    <!-- Before SOS is pressed -->
+    <div id="sosReady">
+        <div class="sos-header">
+            <h1>🆘 Emergency SOS</h1>
+            <p>Press the button below to alert the nearest police station immediately.</p>
+        </div>
+
+        <!-- The big SOS button -->
+        <div class="sos-button-wrapper">
+            <button class="sos-btn" id="sosBtn" onclick="triggerSOS()">
+                <span class="sos-btn-text">SOS</span>
+                <span class="sos-btn-sub">Press for Help</span>
+            </button>
+            <!-- Pulsing ring animation -->
+            <div class="sos-ring ring-1"></div>
+            <div class="sos-ring ring-2"></div>
+        </div>
+
+        <div class="sos-info-cards">
+            <div class="sos-info-card">
+                <span>📍</span>
+                <p>Location will be shared automatically</p>
+            </div>
+            <div class="sos-info-card">
+                <span>👮</span>
+                <p>Nearest police station alerted</p>
+            </div>
+            <div class="sos-info-card">
+                <span>👨‍👩‍👧</span>
+                <p>Family members notified</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- After SOS is pressed — response panel -->
+    <div id="sosResponse" style="display:none;">
+        <div class="response-header">
+            <div class="response-icon">✅</div>
+            <h2>Help is on the way!</h2>
+            <p id="responseMessage">Emergency services have been alerted.</p>
+        </div>
+
+        <div class="response-cards">
+            <div class="response-card police-card">
+                <div class="rc-icon">🚔</div>
+                <div class="rc-content">
+                    <div class="rc-label">Nearest Station</div>
+                    <div class="rc-value" id="stationName">—</div>
+                </div>
+            </div>
+
+            <div class="response-card distance-card">
+                <div class="rc-icon">📍</div>
+                <div class="rc-content">
+                    <div class="rc-label">Distance</div>
+                    <div class="rc-value" id="distanceValue">—</div>
+                </div>
+            </div>
+
+            <div class="response-card eta-card">
+                <div class="rc-icon">⏱️</div>
+                <div class="rc-content">
+                    <div class="rc-label">ETA</div>
+                    <div class="rc-value" id="etaValue">—</div>
+                </div>
+            </div>
+
+            <div class="response-card case-card">
+                <div class="rc-icon">📋</div>
+                <div class="rc-content">
+                    <div class="rc-label">Case ID</div>
+                    <div class="rc-value case-id" id="caseId">—</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SMS alert simulation -->
+        <div class="sms-card">
+            <div class="sms-header">
+                <span>📱</span>
+                <strong>Family Alert Sent</strong>
+                <span class="sms-status">✓ Delivered</span>
+            </div>
+            <div class="sms-body">
+                <p>Message: "{{ name }} has triggered an SOS alert via NagarRaksha. Location shared. Case: <span id="smsCaseId">—</span>"</p>
+            </div>
+        </div>
+
+        <!-- Countdown timer -->
+        <div class="countdown-card">
+            <p>Police arriving in approximately</p>
+            <div class="countdown" id="countdown">4:00</div>
+            <div class="countdown-bar"><div class="countdown-fill" id="countdownFill"></div></div>
+        </div>
+
+        <button class="btn btn-outline" onclick="resetSOS()">
+            ← Go Back
+        </button>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/sos.js') }}"></script>
+{% endblock %}

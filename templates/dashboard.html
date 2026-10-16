@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% block title %}Government Dashboard{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="header-row">
+        <div>
+            <h1 class="page-title">📊 Government Analytics Dashboard</h1>
+            <p class="page-subtitle">Real-time crime statistics across India. Auto-refreshes every 15 seconds.</p>
+        </div>
+        <div class="refresh-indicator" id="refreshIndicator">
+            <span class="refresh-dot"></span>
+            <span>Live</span>
+        </div>
+    </div>
+</div>
+
+<!-- ── Stat Cards ──────────────────────────────────────── -->
+<div class="stats-grid">
+    <div class="stat-card">
+        <span class="stat-icon">📋</span>
+        <span class="stat-number" id="statTotal">—</span>
+        <span class="stat-label">Total Reports</span>
+    </div>
+    <div class="stat-card green">
+        <span class="stat-icon">✅</span>
+        <span class="stat-number" id="statResolved">—</span>
+        <span class="stat-label">Resolved Cases</span>
+    </div>
+    <div class="stat-card orange">
+        <span class="stat-icon">⏳</span>
+        <span class="stat-number" id="statPending">—</span>
+        <span class="stat-label">Pending Cases</span>
+    </div>
+    <div class="stat-card red">
+        <span class="stat-icon">🚨</span>
+        <span class="stat-number" id="statHighThreat">—</span>
+        <span class="stat-label">High Threat Reports</span>
+    </div>
+</div>
+
+<!-- ── Charts Row ─────────────────────────────────────── -->
+<div class="charts-grid">
+
+    <!-- Bar Chart: Crimes by City -->
+    <div class="card chart-card">
+        <h3 class="card-title">🏙️ Reports by City</h3>
+        <!-- canvas = Chart.js renders inside this element -->
+        <canvas id="barChart"></canvas>
+    </div>
+
+    <!-- Pie Chart: Crime Types -->
+    <div class="card chart-card">
+        <h3 class="card-title">🥧 Reports by Type</h3>
+        <canvas id="pieChart"></canvas>
+    </div>
+
+</div>
+
+<!-- Line Chart: 30-day Trend -->
+<div class="card">
+    <h3 class="card-title">📈 30-Day Report Trend</h3>
+    <canvas id="lineChart" style="max-height: 250px;"></canvas>
+</div>
+
+<!-- ── Live Reports Table ─────────────────────────────── -->
+<div class="card">
+    <div class="table-header">
+        <h3 class="card-title" style="margin-bottom:0;">📋 All Reports</h3>
+        <span class="table-count" id="tableCount"></span>
+    </div>
+
+    <div class="table-container" style="margin-top:16px;">
+        <table>
+            <thead>
+                <tr>
+                    <th>Report ID</th>
+                    <th>City</th>
+                    <th>Type</th>
+                    <th>AI Result</th>
+                    <th>Threat</th>
+                    <th>Status</th>
+                    <th>Submitted</th>
+                </tr>
+            </thead>
+            <tbody id="reportsTableBody">
+                <tr>
+                    <td colspan="7" style="text-align:center;color:var(--text-muted);padding:30px;">
+                        Loading reports...
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<!-- Chart.js — free charting library -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}

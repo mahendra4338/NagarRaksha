@@ -1,0 +1,196 @@
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="login-wrapper">
+    <!-- Left Panel: Branding & Visuals (Desktop only) -->
+    <div class="login-visual-panel">
+        <div class="visual-content">
+            <div class="visual-badge">🛡️ Citizen Safety Portal</div>
+            <h1 class="visual-headline">NagarRaksha</h1>
+            <p class="visual-tagline">AI-Powered Safety Reporting & Live Hotspot Heatmaps</p>
+            
+            <div class="feature-bullets">
+                <div class="bullet-item">
+                    <span class="bullet-icon">📷</span>
+                    <div>
+                        <h4>AI Image Analysis</h4>
+                        <p>Google Gemini 1.5 Flash instantly verifies incident authenticity and evaluates threat level.</p>
+                    </div>
+                </div>
+                <div class="bullet-item">
+                    <span class="bullet-icon">🗺️</span>
+                    <div>
+                        <h4>Live Hotspot Heatmaps</h4>
+                        <p>Real-time visual map representing reported threat levels to aid rapid local resolution.</p>
+                    </div>
+                </div>
+                <div class="bullet-item">
+                    <span class="bullet-icon">🆘</span>
+                    <div>
+                        <h4>Automated SOS Signals</h4>
+                        <p>One-tap critical emergency signals that share live GPS metrics with family and stations.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Floating Stats Card -->
+            <div class="visual-stats-card">
+                <div class="stat-box">
+                    <span class="stat-val">24/7</span>
+                    <span class="stat-lbl">Active Guard</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-box">
+                    <span class="stat-val">98%</span>
+                    <span class="stat-lbl">AI Precision</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-box">
+                    <span class="stat-val">&lt;5s</span>
+                    <span class="stat-lbl">Response Time</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tech Map Background Overlay -->
+        <div class="visual-overlay-bg"></div>
+    </div>
+
+    <!-- Right Panel: Form Card -->
+    <div class="login-form-panel">
+        <div class="login-card">
+
+            <!-- Logo + Title -->
+            <div class="login-logo">🛡️</div>
+            <h1 class="login-title">NagarRaksha</h1>
+            <p class="login-subtitle">Safer India. One Report at a Time.</p>
+
+            <!-- Error message (only shown if login fails) -->
+            {% if error %}
+            <div class="alert alert-error" style="background: rgba(255, 76, 76, 0.1); border: 1px solid var(--danger); color: var(--danger); padding: 12px; border-radius: 8px; margin-bottom: 20px; text-align: left; font-size: 0.88rem;">
+                {{ error }}
+            </div>
+            {% endif %}
+
+            <!-- Login Form -->
+            <form method="POST" action="/login" class="login-form">
+
+                <!-- Role Selector -->
+                <div class="form-group">
+                    <label>Select Your Role</label>
+                    <div class="role-selector">
+
+                        <label class="role-option">
+                            <input type="radio" name="role" value="citizen" checked>
+                            <div class="role-card">
+                                <span class="role-icon">👤</span>
+                                <span class="role-name">Citizen</span>
+                                <span class="role-desc">Report & SOS</span>
+                            </div>
+                        </label>
+
+                        <label class="role-option">
+                            <input type="radio" name="role" value="authority">
+                            <div class="role-card">
+                                <span class="role-icon">👮</span>
+                                <span class="role-name">Authority</span>
+                                <span class="role-desc">View & Resolve</span>
+                            </div>
+                        </label>
+
+                        <label class="role-option">
+                            <input type="radio" name="role" value="government">
+                            <div class="role-card">
+                                <span class="role-icon">🏛️</span>
+                                <span class="role-name">Government</span>
+                                <span class="role-desc">Analytics</span>
+                            </div>
+                        </label>
+
+                    </div>
+                </div>
+
+                <!-- Email Field -->
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email"
+                           id="email"
+                           name="email"
+                           placeholder="Enter your email"
+                           autocomplete="email"
+                           required>
+                </div>
+
+                <!-- Password Field -->
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password"
+                           id="password"
+                           name="password"
+                           placeholder="Enter your password"
+                           required>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-primary login-btn">
+                    🔐 Login to NagarRaksha
+                </button>
+            </form>
+
+            <!-- Redirect to Register link -->
+            <p class="register-hint" style="text-align:center; margin-top:20px; color:var(--text-muted); font-size:0.92rem;">
+                New user? <a href="/register" style="color:var(--accent); text-decoration:none; font-weight:bold;">Register here</a>
+            </p>
+
+            <!-- Demo credentials hint for viva/demo -->
+            <div class="demo-hint">
+                <p class="demo-title">📋 Demo Credentials</p>
+                <div class="demo-credentials">
+                    <div class="demo-row">
+                        <span>👤 Citizen:</span>
+                        <code>citizen@nr.com / citizen123</code>
+                    </div>
+                    <div class="demo-row">
+                        <span>👮 Authority:</span>
+                        <code>authority@nr.com / authority123</code>
+                    </div>
+                    <div class="demo-row">
+                        <span>🏛️ Government:</span>
+                        <code>government@nr.com / government123</code>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+// Auto-select role radio when clicking demo credentials
+// Makes demo easier and faster
+document.querySelectorAll('.demo-row').forEach(row => {
+    row.addEventListener('click', () => {
+        const text = row.querySelector('span').textContent;
+        if (text.includes('Citizen')) {
+            document.querySelector('input[value="citizen"]').checked = true;
+            document.getElementById('email').value    = 'citizen@nr.com';
+            document.getElementById('password').value = 'citizen123';
+        } else if (text.includes('Authority')) {
+            document.querySelector('input[value="authority"]').checked = true;
+            document.getElementById('email').value    = 'authority@nr.com';
+            document.getElementById('password').value = 'authority123';
+        } else if (text.includes('Government')) {
+            document.querySelector('input[value="government"]').checked = true;
+            document.getElementById('email').value    = 'government@nr.com';
+            document.getElementById('password').value = 'government123';
+        }
+    });
+    row.style.cursor = 'pointer';
+});
+</script>
+{% endblock %}

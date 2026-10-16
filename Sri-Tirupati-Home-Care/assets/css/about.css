@@ -1,0 +1,20 @@
+/* ===================== ABOUT PAGE ===================== */
+.story-visual{ position:relative; }
+.story-visual img{ border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); }
+.story-visual .story-img-sm{ position:absolute; bottom:-2rem; right:-2rem; width:55%; border:6px solid #fff; border-radius: var(--radius-md); box-shadow: var(--shadow-lg); }
+
+.value-card{ padding: 2rem; text-align:center; height:100%; }
+.value-card .icon-badge{ margin:0 auto 1.25rem; width:64px; height:64px; border-radius: var(--radius-md); font-size:1.5rem; }
+.value-card h4{ font-size:1.05rem; margin-bottom:.6rem; }
+.value-card p{ font-size:.9rem; }
+
+.team-card{ text-align:center; overflow:hidden; }
+.team-card .team-img{ height:260px; overflow:hidden; }
+.team-card .team-img img{ height:100%; width:100%; object-fit:cover; transition: transform .5s ease; }
+.team-card:hover .team-img img{ transform: scale(1.06); }
+.team-card .team-body{ padding: 1.5rem; }
+.team-card h4{ font-size:1.05rem; margin-bottom:.2rem; }
+.team-card span{ font-size:.85rem; color: var(--color-secondary); font-weight:600; }
+
+.mission-vision-card{ padding: 2.5rem; height:100%; }
+.mission-vision-card .icon-badge{ margin-bottom:1.25rem; }

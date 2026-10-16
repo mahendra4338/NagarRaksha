@@ -1,0 +1,27 @@
+# ============================================================
+# render.yaml — Render Deployment Configuration
+# ============================================================
+# PURPOSE: Tells Render how to build and run NagarRaksha
+# This file is read automatically by Render when you connect
+# your GitHub repository.
+# ============================================================
+
+services:
+  - type: web                          # Web service (not worker/cron)
+    name: nagarraksha                  # Name shown on Render dashboard
+    runtime: python                    # Python runtime environment
+    buildCommand: pip install -r requirements.txt   # Install packages
+    startCommand: gunicorn app:app     # Start Flask with gunicorn
+    # app:app means → file=app.py, Flask instance=app
+
+    envVars:
+      # These are placeholders — you'll set real values on Render dashboard
+      # NEVER put actual values here — this file goes to GitHub!
+      - key: GEMINI_API_KEY
+        sync: false                    # sync:false = set manually on Render
+
+      - key: SECRET_KEY
+        sync: false
+
+      - key: USE_MOCK_AI
+        value: "false"                 # Default: use real Gemini API

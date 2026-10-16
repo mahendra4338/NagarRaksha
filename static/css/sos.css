@@ -1,0 +1,223 @@
+/* sos.css — SOS Page Specific Styles */
+
+.sos-container {
+    max-width:  600px;
+    margin:     0 auto;
+    text-align: center;
+    padding:    20px 0;
+}
+
+/* ── SOS Ready State ───────────────────────────────────── */
+.sos-header h1  { font-family: 'Outfit', sans-serif; font-size: 2.2rem; font-weight: 800; margin-bottom: 12px; }
+.sos-header p   { color: var(--text-muted); margin-bottom: 40px; }
+
+/* SOS Button + Pulsing Rings Container */
+.sos-button-wrapper {
+    position:        relative;
+    display:         inline-block;
+    margin:          40px auto;
+}
+
+/* The Big Red SOS Button */
+.sos-btn {
+    width:            190px;
+    height:           190px;
+    border-radius:    50%;           /* Makes it a circle */
+    background:       radial-gradient(circle, #ff2d55, #cc0033);
+    border:           4px solid #ff6b85;
+    color:            white;
+    cursor:           pointer;
+    display:          flex;
+    flex-direction:   column;
+    align-items:      center;
+    justify-content:  center;
+    gap:              6px;
+    position:         relative;
+    z-index:          10;           /* Above the rings */
+    box-shadow:       0 0 50px rgba(255, 45, 85, 0.6);
+    transition:       all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sos-btn:hover:not(:disabled) {
+    transform:  scale(1.05);
+    box-shadow: 0 0 70px rgba(255, 45, 85, 0.8);
+}
+
+.sos-btn:active:not(:disabled) {
+    transform: scale(0.96);
+}
+
+.sos-btn:disabled {
+    opacity: 0.6;
+    cursor:  not-allowed;
+}
+
+.sos-btn-text {
+    font-size:   2.6rem;
+    font-weight: 900;
+    letter-spacing: 4px;
+}
+
+.sos-btn-sub {
+    font-size:  0.78rem;
+    opacity:    0.9;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+/* Pulsing Rings around SOS button */
+.sos-ring {
+    position:      absolute;
+    border-radius: 50%;
+    border:        2px solid rgba(255, 45, 85, 0.4);
+    top:           50%;
+    left:          50%;
+    transform:     translate(-50%, -50%);
+    animation:     ringPulse 2s ease-out infinite;
+}
+
+.ring-1 {
+    width:            230px;
+    height:           230px;
+    animation-delay:  0s;
+}
+
+.ring-2 {
+    width:            280px;
+    height:           280px;
+    animation-delay:  0.6s;
+}
+
+@keyframes ringPulse {
+    0%   { opacity: 0.8; transform: translate(-50%, -50%) scale(0.95); }
+    100% { opacity: 0;   transform: translate(-50%, -50%) scale(1.25); }
+}
+
+/* Info cards below SOS button */
+.sos-info-cards {
+    display:               grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap:                   16px;
+    margin-top:            50px;
+}
+
+.sos-info-card {
+    background:    rgba(20, 26, 46, 0.4);
+    border-radius: 12px;
+    padding:       20px 12px;
+    border:        1px solid var(--border);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition:    all 0.3s ease;
+}
+
+.sos-info-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.sos-info-card span { font-size: 2rem; display: block; margin-bottom: 8px; }
+.sos-info-card p    { color: var(--text-muted); font-size: 0.85rem; font-weight: 500; }
+
+
+/* ── SOS Response State ────────────────────────────────── */
+.response-header {
+    margin-bottom: 30px;
+    padding:       30px;
+    background:    rgba(16, 185, 129, 0.1);
+    border-radius: 16px;
+    border:        1px solid var(--success);
+    box-shadow:    0 0 20px rgba(16, 185, 129, 0.15);
+}
+
+.response-icon { font-size: 3rem; margin-bottom: 10px; }
+.response-header h2 { color: var(--success); font-family: 'Outfit', sans-serif; font-size: 1.8rem; font-weight: 800; }
+.response-header p  { color: var(--text-muted); margin-top: 6px; }
+
+/* Response detail cards */
+.response-cards {
+    display:               grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap:                   16px;
+    margin-bottom:         24px;
+}
+
+.response-card {
+    background:    rgba(20, 26, 46, 0.5);
+    border-radius: 12px;
+    padding:       18px;
+    border:        1px solid var(--border);
+    display:       flex;
+    align-items:   center;
+    gap:           14px;
+    text-align:    left;
+}
+
+.rc-icon    { font-size: 1.8rem; }
+.rc-label   { color: var(--text-muted); font-size: 0.8rem; font-weight: 500; }
+.rc-value   { font-size: 1rem; font-weight: bold; margin-top: 4px; }
+.case-id    { color: var(--accent); font-family: monospace; font-size: 0.9rem; }
+
+/* SMS simulation card */
+.sms-card {
+    background:    rgba(20, 26, 46, 0.4);
+    border-radius: 12px;
+    padding:       18px;
+    border:        1px solid var(--success);
+    margin-bottom: 24px;
+    text-align:    left;
+    box-shadow:    0 4px 20px rgba(16, 185, 129, 0.05);
+}
+
+.sms-header {
+    display:       flex;
+    align-items:   center;
+    gap:           8px;
+    margin-bottom: 10px;
+}
+
+.sms-status { color: var(--success); font-size: 0.85rem; margin-left: auto; font-weight: 600; }
+.sms-body p { color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; }
+
+/* Countdown */
+.countdown-card {
+    background:    rgba(20, 26, 46, 0.5);
+    border-radius: 12px;
+    padding:       24px;
+    border:        1px solid var(--border);
+    margin-bottom: 24px;
+}
+
+.countdown-card > p { color: var(--text-muted); margin-bottom: 10px; font-weight: 500; }
+
+.countdown {
+    font-size:   3.2rem;
+    font-weight: bold;
+    color:       var(--accent);
+    margin:      10px 0;
+    font-family: 'Outfit', sans-serif;
+    letter-spacing: -1px;
+}
+
+.countdown-bar {
+    background:    rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    height:        8px;
+    overflow:      hidden;
+    margin-top:    10px;
+}
+
+.countdown-fill {
+    height:           100%;
+    background:       var(--accent);
+    width:            0%;
+    border-radius:    10px;
+    transition:       width 1s linear;
+}
+
+@media (max-width: 480px) {
+    .sos-info-cards   { grid-template-columns: 1fr; }
+    .response-cards   { grid-template-columns: 1fr; }
+    .sos-btn          { width: 150px; height: 150px; }
+    .sos-btn-text     { font-size: 2rem; }
+}

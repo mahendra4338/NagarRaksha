@@ -1,0 +1,102 @@
+/* heatmap.css — Heatmap Page Styles */
+
+#map {
+    height:        600px;
+    width:         100%;
+    border-radius: 16px;
+    border:        1px solid var(--border);
+    box-shadow:    0 10px 30px rgba(0,0,0,0.5);
+    margin-top:    20px;
+}
+
+.filter-panel { margin-bottom: 0; }
+
+.filter-grid {
+    display:               grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap:                   16px;
+    margin-bottom:         16px;
+}
+
+.filter-item { margin-bottom: 0; }
+
+.filter-actions {
+    display:         flex;
+    justify-content: space-between;
+    align-items:     center;
+    flex-wrap:       wrap;
+    gap:             10px;
+}
+
+.report-count {
+    color:     var(--text-muted);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+/* Legend */
+.map-legend {
+    display:     flex;
+    align-items: center;
+    gap:         20px;
+    padding:     14px 20px;
+    background:  rgba(20, 26, 46, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 12px;
+    border:      1px solid var(--border);
+    margin-bottom: 0;
+    flex-wrap:   wrap;
+}
+
+.legend-item {
+    display:     flex;
+    align-items: center;
+    gap:         6px;
+    font-size:   0.85rem;
+    color:       var(--text-muted);
+    font-weight: 500;
+}
+
+.legend-dot {
+    width:         12px;
+    height:        12px;
+    border-radius: 50%;
+    display:       inline-block;
+}
+
+.legend-dot.critical { background: #ff2d55; }
+.legend-dot.high     { background: #ff6b35; }
+.legend-dot.medium   { background: #f5a623; }
+.legend-dot.low      { background: #0f9b58; }
+
+.legend-refresh {
+    margin-left: auto;
+    font-size:   0.8rem;
+    color:       var(--success);
+    font-weight: 600;
+}
+
+/* Override Leaflet popup styles to match dark theme */
+.leaflet-popup-content-wrapper {
+    background:    #0c0f22 !important;
+    color:         #f3f4f6 !important;
+    border-radius: 12px !important;
+    padding:       0 !important;
+    border:        1px solid rgba(255, 255, 255, 0.1) !important;
+    overflow:      hidden;
+    box-shadow:    0 10px 30px rgba(0, 0, 0, 0.6) !important;
+}
+
+.leaflet-popup-content {
+    margin: 0 !important;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+}
+
+.leaflet-popup-tip { background: #0c0f22 !important; border: 1px solid rgba(255, 255, 255, 0.1); }
+.leaflet-popup-close-button { color: #f3f4f6 !important; padding: 8px !important; }
+
+@media (max-width: 768px) {
+    #map { height: 400px; }
+    .filter-grid { grid-template-columns: 1fr 1fr; }
+}

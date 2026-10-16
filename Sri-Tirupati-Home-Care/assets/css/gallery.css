@@ -1,0 +1,41 @@
+/* ===================== GALLERY ===================== */
+.gallery-filters{ display:flex; flex-wrap:wrap; gap:.6rem; justify-content:center; margin-bottom: 2.5rem; }
+.gallery-filter-btn{
+  font-family: var(--font-heading); font-weight:600; font-size:.88rem;
+  border: 1px solid var(--color-border); background:#fff; color: var(--color-text);
+  padding:.6rem 1.4rem; border-radius: var(--radius-full); transition: all .3s ease;
+}
+.gallery-filter-btn:hover{ border-color: var(--color-secondary); color: var(--color-secondary); }
+.gallery-filter-btn.active{ background: var(--gradient-primary); color:#fff; border-color:transparent; }
+
+.gallery-grid{ column-count: 3; column-gap: 1.25rem; }
+.gallery-item{ break-inside: avoid; margin-bottom: 1.25rem; border-radius: var(--radius-md); overflow:hidden; position:relative; cursor:pointer; box-shadow: var(--shadow-sm); }
+.gallery-item img{ width:100%; display:block; transition: transform .5s ease; }
+.gallery-item:hover img{ transform: scale(1.08); }
+.gallery-overlay{
+  position:absolute; inset:0; background: linear-gradient(to top, rgba(15,76,129,0.85), transparent 60%);
+  display:flex; align-items:flex-end; padding: 1.25rem; opacity:0; transition: opacity .35s ease;
+}
+.gallery-item:hover .gallery-overlay{ opacity:1; }
+.gallery-overlay span{ color:#fff; font-family: var(--font-heading); font-weight:600; font-size:.92rem; }
+.gallery-item.hide{ display:none; }
+
+@media (max-width: 991.98px){ .gallery-grid{ column-count: 2; } }
+@media (max-width: 575.98px){ .gallery-grid{ column-count: 1; } }
+
+/* lightbox */
+.stc-lightbox{
+  position:fixed; inset:0; background: rgba(11,35,56,0.92); z-index: 2000;
+  display:flex; align-items:center; justify-content:center; opacity:0; visibility:hidden;
+  transition: all .35s ease; padding: 2rem;
+}
+.stc-lightbox.open{ opacity:1; visibility:visible; }
+.stc-lightbox img{ max-width: 90vw; max-height: 85vh; border-radius: var(--radius-md); box-shadow: var(--shadow-lg); }
+.stc-lightbox-close, .stc-lightbox-nav{
+  position:absolute; color:#fff; background: rgba(255,255,255,0.12); width:48px; height:48px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center; border:none; font-size:1.2rem; cursor:pointer;
+}
+.stc-lightbox-close{ top:1.5rem; right:1.5rem; }
+.stc-lightbox-nav.prev{ left:1.5rem; top:50%; transform: translateY(-50%); }
+.stc-lightbox-nav.next{ right:1.5rem; top:50%; transform: translateY(-50%); }
+.stc-lightbox-nav:hover, .stc-lightbox-close:hover{ background: var(--color-secondary); }

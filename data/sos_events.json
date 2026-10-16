@@ -1,0 +1,24 @@
+[
+  {
+    "sos_id": "SOS1A2B3C",
+    "user_id": "citizen@nr.com",
+    "latitude": 16.5062,
+    "longitude": 80.648,
+    "nearest_station": "Vijayawada Central Police Station",
+    "distance_km": 1.2,
+    "eta_minutes": 4,
+    "case_id": "NR-1719045000000",
+    "timestamp": "2026-06-22T11:00:00"
+  },
+  {
+    "sos_id": "SOS7FA594D3",
+    "user_id": "mahig77777@gmail.com",
+    "latitude": 16.5062,
+    "longitude": 80.648,
+    "nearest_station": "Vijayawada Central Police Station",
+    "distance_km": 1.2,
+    "eta_minutes": 4,
+    "case_id": "NR-1783156182336",
+    "timestamp": "2026-07-04T14:39:42.336499"
+  }
+]

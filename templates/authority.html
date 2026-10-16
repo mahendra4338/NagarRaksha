@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+{% block title %}Authority Dashboard{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1 class="page-title">👮 Authority Dashboard</h1>
+    <p class="page-subtitle">Welcome, {{ name }}. Review and resolve citizen reports.</p>
+</div>
+
+<!-- Summary Cards -->
+<div class="stats-grid" style="grid-template-columns: repeat(2, 1fr); max-width: 500px;">
+    <div class="stat-card orange">
+        <span class="stat-icon">⏳</span>
+        <span class="stat-number">{{ pending_count }}</span>
+        <span class="stat-label">Pending Cases</span>
+    </div>
+    <div class="stat-card green">
+        <span class="stat-icon">✅</span>
+        <span class="stat-number">{{ resolved_count }}</span>
+        <span class="stat-label">Resolved Cases</span>
+    </div>
+</div>
+
+<!-- Pending Reports -->
+<div class="card" style="margin-top: 20px;">
+    <h2 class="card-title">⏳ Pending Reports — Action Required</h2>
+
+    {% if pending %}
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Report ID</th>
+                    <th>City</th>
+                    <th>Type</th>
+                    <th>Threat</th>
+                    <th>AI Result</th>
+                    <th>Reason</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="pendingTableBody">
+                {% for r in pending %}
+                <tr id="row-{{ r.report_id }}">
+                    <td><code style="color:var(--accent)">#{{ r.report_id }}</code></td>
+                    <td>{{ r.city }}</td>
+                    <td>{{ r.incident_type }}</td>
+                    <td>
+                        <span class="badge badge-{{ r.threat_level.lower() }}">
+                            {{ r.threat_level }}
+                        </span>
+                    </td>
+                    <td>
+                        <span class="badge badge-{{ r.ai_result.lower() }}">
+                            {{ r.ai_result }}
+                        </span>
+                    </td>
+                    <td style="max-width:200px;font-size:0.82rem;color:var(--text-muted);">
+                        {{ r.reason[:80] ~ '...' if r.reason and r.reason|length > 80 else r.reason }}
+                    </td>
+                    <td style="color:var(--text-muted);font-size:0.82rem;">
+                        {{ r.timestamp[:10] if r.timestamp else '—' }}
+                    </td>
+                    <td>
+                        <!-- Resolve button — calls resolveCase() in JavaScript -->
+                        <button class="btn btn-success btn-sm"
+                                id="btn-{{ r.report_id }}"
+                                onclick="resolveCase('{{ r.report_id }}')">
+                            ✅ Resolve
+                        </button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div style="text-align:center;padding:40px;color:var(--text-muted);">
+        <div style="font-size:3rem;margin-bottom:16px;">🎉</div>
+        <p>No pending cases! All reports have been resolved.</p>
+    </div>
+    {% endif %}
+</div>
+
+<!-- Resolved Reports -->
+{% if resolved %}
+<div class="card" style="margin-top: 20px;">
+    <h2 class="card-title">✅ Resolved Reports</h2>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Report ID</th>
+                    <th>City</th>
+                    <th>Type</th>
+                    <th>Threat</th>
+                    <th>Resolved At</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for r in resolved %}
+                <tr>
+                    <td><code style="color:var(--success)">#{{ r.report_id }}</code></td>
+                    <td>{{ r.city }}</td>
+                    <td>{{ r.incident_type }}</td>
+                    <td>
+                        <span class="badge badge-{{ r.threat_level.lower() }}">
+                            {{ r.threat_level }}
+                        </span>
+                    </td>
+                    <td style="color:var(--text-muted);font-size:0.82rem;">
+                        {{ r.resolved_at[:10] if r.resolved_at else '—' }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+
+<script>
+function resolveCase(reportId) {
+    /**
+     * Called when authority clicks "Resolve" button.
+     * Sends POST to Flask /resolve/<id>.
+     * Removes the row from table on success.
+     */
+    const btn = document.getElementById('btn-' + reportId);
+
+    // Disable button to prevent double-click
+    btn.disabled    = true;
+    btn.textContent = '⏳ Resolving...';
+
+    fetch('/resolve/' + reportId, {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' }
+    })
+    .then(r => r.json())
+    .then(data => {
+        if (data.success) {
+            // Fade out and remove the row
+            const row = document.getElementById('row-' + reportId);
+            row.style.opacity    = '0';
+            row.style.transition = 'opacity 0.5s';
+            setTimeout(() => row.remove(), 500);
+
+            // Update pending count
+            const countEl = document.querySelector('.stat-card.orange .stat-number');
+            if (countEl) countEl.textContent = parseInt(countEl.textContent) - 1;
+        } else {
+            btn.disabled    = false;
+            btn.textContent = '✅ Resolve';
+            alert('Failed: ' + (data.error || 'Unknown error'));
+        }
+    })
+    .catch(err => {
+        btn.disabled    = false;
+        btn.textContent = '✅ Resolve';
+        alert('Connection error. Please try again.');
+    });
+}
+</script>
+{% endblock %}
